@@ -2,9 +2,10 @@
 
 给索尼 INZONE H5 用的电量小工具。
 
-Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的档位，甚至一直不变。这个小工具绕过系统，直接向接收器的 HID 控制通道查询，拿到耳机固件自己上报的 **0–100 百分比**，显示在一个可拖动的小悬浮窗里，同时提供一个托盘图标。
+Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的档位，甚至一直不变。
+这个小工具绕过系统，直接向接收器的 HID 控制通道查询，拿到耳机固件自己上报的 **0–100 百分比**，显示在一个可拖动的小悬浮窗里，同时提供一个托盘图标。
 
-![悬浮窗](shot.png)
+![悬浮窗](build/shot.png)
 
 ## 功能
 
@@ -18,23 +19,8 @@ Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的�
 - 锁定位置：防止误拖动或误缩放；锁定时拖动会提示，解锁后恢复
 - 托盘图标为电池，按电量变色，悬停显示百分比；电量低于 20%、10% 时弹一次通知
 - 双击悬浮窗立即刷新；位置、大小、置顶、锁定状态都会记住
-- 单文件 exe，除 Windows 10/11 自带的 .NET Framework 4.x 外不需要任何运行库
 
 ![托盘图标](build/shot-tray.png)
-
-## 下载与使用
-
-到 [Releases](../../releases) 下载 `InzoneBattery.exe`（或 `InzoneBattery-win.zip`），双击即可，无需安装。
-
-> 程序没有代码签名，首次运行 Windows SmartScreen 可能提示「Windows 已保护你的电脑」，点「更多信息 → 仍要运行」即可。也欢迎从源码自行编译。
-
-- 拖动悬浮窗：按住左键拖（锁定后拖动会提示）
-- 立即刷新：双击悬浮窗，或右键菜单
-- 背景不透明度：中键点悬浮窗，或右键菜单「背景不透明度…」
-- 隐藏：右键菜单「显示悬浮窗」取消勾选（或左键点托盘图标）
-- 开机自启：右键菜单「开机自动启动」勾选（写入 `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`）
-  - 写入后会回读校验，失败会弹窗说明原因，并记到 `%TEMP%\InzoneBattery-startup.log`
-  - 也可以用 `InzoneBattery.exe --startup on|off|status` 开关或查看
 
 ## 精简版（只有托盘图标）
 
@@ -44,6 +30,17 @@ Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的�
 - 图标本身就是电量条；左键点弹气泡，右键菜单只有「立即刷新 / 开机自动启动 / 重新显示托盘图标 / 退出」
 - 自启动注册表值名是 `InzoneBatteryLite`，和完整版互不覆盖，两个可以同时开着
 - 细节见 [lite/README.md](lite/README.md)
+
+## 下载
+
+到 [Releases](../../releases) 下载
+完整版 `InzoneBattery.exe`
+精简版  `InzoneBatteryLite.exe`
+-双击即可运行无需安装
+
+> 程序没有代码签名，首次运行 Windows SmartScreen 可能提示「Windows 已保护你的电脑」，点「更多信息 → 仍要运行」即可。也欢迎从源码自行编译。
+
+
 
 ### 外观设置
 
@@ -119,27 +116,11 @@ INZONE 的 USB 接收器是一个复合设备，除了两个音频端点外还�
 - 背景是真透明（逐像素分层窗口），但 Win11 的亚克力模糊在这种窗口上没生效，透出来的是清晰桌面而不是磨砂
 - 只支持 Windows
 
-## 分享给朋友
+## 几点提醒
 
-**只发 `InzoneBattery.exe` 一个文件就行**（约 60 KB，单文件、免安装）。
-
-几点提醒：
-
-- 对方也得用 INZONE 系列耳机（H5 / H9 / H7 / Buds 等同款 2.4GHz 接收器协议），插上接收器就能读
+- 目前只测试了INZONE H5 耳机, H3/H7/H9/H9II/Buds耳机为测试可行性
 - 通过微信 / QQ / 网盘 / 邮件传来的 exe 会带「网络来源」标记，首次运行 SmartScreen 会提示，点「更多信息 → 仍要运行」
 - 个别杀软可能对未签名的自编译 exe 敏感，加白名单即可
-- 不用连 `build\SetIntegrity.exe` 一起发：exe 单独拷贝到别的电脑 / 目录时默认就是 Medium 完整性，托盘图标正常
-
-## 从源码构建
-
-需要 Windows 自带的 .NET Framework 4.x 编译器，无需安装 SDK：
-
-```powershell
-cd "E:\创作\项目\InzoneBattery"
-powershell -ExecutionPolicy Bypass -File build.ps1
-```
-
-生成 `InzoneBattery.exe`。GitHub Actions 会在每次 push 时用同样的方式构建并上传 artifact（见 `.github/workflows/build.yml`）。
 
 ## 卸载
 
@@ -147,7 +128,7 @@ powershell -ExecutionPolicy Bypass -File build.ps1
 
 ## 目录
 
-以下路径相对项目根目录（本项目当前放在 `E:\创作\项目\InzoneBattery`）：
+以下路径相对项目根目录：
 
 ```
 InzoneBattery.exe     编译好的程序（Releases 里提供）
