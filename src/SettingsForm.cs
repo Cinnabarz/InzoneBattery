@@ -4,15 +4,14 @@ using System.Windows.Forms;
 
 namespace InzoneBattery
 {
-    /// <summary>透明度与效果设置。</summary>
+    /// <summary>背景不透明度设置。</summary>
     sealed class SettingsForm : Form
     {
         readonly TrayApp _app;
         readonly TrackBar _slider;
         readonly Label _value;
-        readonly CheckBox _follow;
 
-        public SettingsForm(TrayApp app, float opacity, bool follow)
+        public SettingsForm(TrayApp app, float opacity)
         {
             _app = app;
 
@@ -23,7 +22,7 @@ namespace InzoneBattery
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;
             TopMost = true;
-            ClientSize = new Size(380, 210);
+            ClientSize = new Size(380, 170);
             Font = new Font("Segoe UI", 9f);
             BackColor = Color.FromArgb(250, 250, 250);
 
@@ -50,24 +49,17 @@ namespace InzoneBattery
             _value.AutoSize = true;
             Controls.Add(_value);
 
-            _follow = new CheckBox();
-            _follow.Text = "跟随 Windows 透明效果";
-            _follow.Location = new Point(16, 96);
-            _follow.AutoSize = true;
-            _follow.Checked = follow;
-            Controls.Add(_follow);
-
             var hint = new Label();
             hint.Text = "只影响卡片背景，文字和图形保持不透明。";
             hint.ForeColor = Color.FromArgb(110, 110, 110);
-            hint.Location = new Point(16, 124);
+            hint.Location = new Point(16, 96);
             hint.MaximumSize = new Size(348, 0);
             hint.AutoSize = true;
             Controls.Add(hint);
 
             var close = new Button();
             close.Text = "关闭";
-            close.Location = new Point(282, 170);
+            close.Location = new Point(282, 128);
             close.Size = new Size(82, 28);
             close.Click += delegate { Close(); };
             Controls.Add(close);
@@ -77,8 +69,6 @@ namespace InzoneBattery
                 _value.Text = _slider.Value + "%";
                 _app.SetOpacity(_slider.Value / 100f);
             };
-
-            _follow.CheckedChanged += delegate { _app.SetFollowSystem(_follow.Checked); };
         }
 
         protected override CreateParams CreateParams

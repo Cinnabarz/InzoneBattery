@@ -50,7 +50,6 @@ namespace InzoneBattery
         float _customW = WidgetForm.DefaultWidth;
         float _customH = WidgetForm.DefaultHeight;
         float _opacity = 0.97f;
-        bool _followSystem = true;
         bool _topmost = true;
         bool _locked;
         SettingsForm _settings;
@@ -98,7 +97,7 @@ namespace InzoneBattery
             AddSizeItem(sizeMenu, "特大 (150%)", 1.5f);
             menu.Items.Add(sizeMenu);
 
-            menu.Items.Add(new ToolStripMenuItem("背景透明度与效果…", null, delegate { ShowSettings(); }));
+            menu.Items.Add(new ToolStripMenuItem("背景不透明度…", null, delegate { ShowSettings(); }));
 
             _menuTopmost = new ToolStripMenuItem("窗口置顶", null, delegate
             {
@@ -471,7 +470,6 @@ namespace InzoneBattery
             _widget.TopMost = _topmost;
             _widget.Locked = _locked;
             _widget.SetSize(_w, _h);
-            _widget.SetFollowSystem(_followSystem);
             _widget.SetOpacity(_opacity);
         }
 
@@ -493,7 +491,6 @@ namespace InzoneBattery
             _w = WidgetForm.DefaultWidth;
             _h = WidgetForm.DefaultHeight;
             _opacity = 0.97f;
-            _followSystem = true;
             _topmost = true;
             _locked = false;
             _widgetVisible = true;
@@ -522,7 +519,7 @@ namespace InzoneBattery
                 return;
             }
 
-            _settings = new SettingsForm(this, _opacity, _followSystem);
+            _settings = new SettingsForm(this, _opacity);
             _settings.FormClosed += delegate { _settings = null; };
             _settings.Show();
             _settings.Activate();
@@ -532,13 +529,6 @@ namespace InzoneBattery
         {
             _opacity = value;
             _widget.SetOpacity(value);
-            SaveConfig();
-        }
-
-        public void SetFollowSystem(bool on)
-        {
-            _followSystem = on;
-            _widget.SetFollowSystem(on);
             SaveConfig();
         }
 
@@ -694,7 +684,6 @@ namespace InzoneBattery
                     else if (key == "widget") _widgetVisible = n != 0;
                     else if (key == "topmost") _topmost = n != 0;
                     else if (key == "locked") _locked = n != 0;
-                    else if (key == "follow") _followSystem = n != 0;
                 }
             }
             catch (Exception)
@@ -718,8 +707,7 @@ namespace InzoneBattery
                     "locked=" + (_locked ? 1 : 0) + "\r\n" +
                     "customW=" + _customW.ToString(CultureInfo.InvariantCulture) + "\r\n" +
                     "customH=" + _customH.ToString(CultureInfo.InvariantCulture) + "\r\n" +
-                    "opacity=" + _opacity.ToString(CultureInfo.InvariantCulture) + "\r\n" +
-                    "follow=" + (_followSystem ? 1 : 0) + "\r\n");
+                    "opacity=" + _opacity.ToString(CultureInfo.InvariantCulture) + "\r\n");
             }
             catch (Exception)
             {

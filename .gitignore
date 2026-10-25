@@ -1,6 +1,8 @@
 # build output
 /InzoneBattery.exe
 /build/*.exe
+/lite/InzoneBatteryLite.exe
+/lite/build/*.exe
 
 # runtime logs written next to the exe
 startup.log

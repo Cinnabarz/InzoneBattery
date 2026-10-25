@@ -12,21 +12,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build with csc (no SDK needed)
+      - name: Build full version with csc (no SDK needed)
         shell: pwsh
         run: |
           ./build.ps1
 
-      - name: Show result
+      - name: Show full version result
         shell: pwsh
         run: |
           Get-Item InzoneBattery.exe | Select-Object Name, Length
           (Get-AuthenticodeSignature InzoneBattery.exe).Status
 
-      - name: Upload artifact
+      - name: Build lite version (tray only)
+        shell: pwsh
+        run: |
+          ./lite/build.ps1
+
+      - name: Show lite version result
+        shell: pwsh
+        run: |
+          Get-Item lite/InzoneBatteryLite.exe | Select-Object Name, Length
+
+      - name: Upload full version
         uses: actions/upload-artifact@v4
         with:
           name: InzoneBattery-win
           path: |
             InzoneBattery.exe
             build/SetIntegrity.exe
+
+      - name: Upload lite version
+        uses: actions/upload-artifact@v4
+        with:
+          name: InzoneBatteryLite-win
+          path: |
+            lite/InzoneBatteryLite.exe
+            lite/build/SetIntegrity.exe

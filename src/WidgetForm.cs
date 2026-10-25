@@ -37,8 +37,7 @@ namespace InzoneBattery
         float _h = DefaultHeight;
         float _minH = 44f;  // 最小高度 = 任务栏高度 - 1
         float _bgAlpha = 0.97f;      // 用户设置的背景不透明度
-        float _effectiveBg = 0.97f;  // 结合系统设置后的实际值
-        bool _followSystem = true;
+        float _effectiveBg = 0.97f;  // 渲染时用的背景 alpha
         bool _locked;
 
         string _model = "INZONE";
@@ -139,7 +138,7 @@ namespace InzoneBattery
         }
 
         // ------------------------------------------------------------------
-        // 背景透明度 / Win11 透明效果
+        // 背景透明度
         // ------------------------------------------------------------------
 
         public void SetOpacity(float value)
@@ -150,40 +149,10 @@ namespace InzoneBattery
             ApplyBackground();
         }
 
-        public void SetFollowSystem(bool on)
-        {
-            _followSystem = on;
-            ApplyBackground();
-        }
-
         void ApplyBackground()
         {
             _effectiveBg = _bgAlpha;
-            bool systemOn = SystemTransparencyEnabled();
-            if (_followSystem && !systemOn)
-                _effectiveBg = 1f;
-
             RenderLayered();
-        }
-
-        /// <summary>Windows「透明效果」总开关。</summary>
-        public static bool SystemTransparencyEnabled()
-        {
-            try
-            {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(
-                    @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
-                {
-                    if (key == null) return true;
-                    object value = key.GetValue("EnableTransparency");
-                    if (value == null) return true;
-                    return Convert.ToInt32(value) != 0;
-                }
-            }
-            catch (Exception)
-            {
-                return true;
-            }
         }
 
         // ------------------------------------------------------------------
