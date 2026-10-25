@@ -25,7 +25,7 @@ Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的�
 - 命令行模式，方便脚本或其他程序调用
 - 单文件 exe，除 Windows 10/11 自带的 .NET Framework 4.x 外不需要任何运行库
 
-![托盘图标](build/tray-icon.png)
+![托盘图标](build/shot-tray.png)
 
 ## 下载与使用
 
