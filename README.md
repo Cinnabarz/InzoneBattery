@@ -21,7 +21,7 @@ Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的�
 - 双击悬浮窗立即刷新；位置、大小、置顶、锁定状态都会记住
 - 单文件 exe，除 Windows 10/11 自带的 .NET Framework 4.x 外不需要任何运行库
 
-![托盘图标](build/tray-icon.png)
+![托盘图标](build/shot-tray.png)
 
 ## 下载与使用
 
