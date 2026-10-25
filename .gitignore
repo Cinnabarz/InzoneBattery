@@ -1,0 +1,14 @@
+# build output
+/InzoneBattery.exe
+/build/*.exe
+
+# runtime logs written next to the exe
+startup.log
+
+# scratch / diagnostics
+/tmp/
+
+# IDE
+.vs/
+*.user
+*.suo
