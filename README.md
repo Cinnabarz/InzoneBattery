@@ -20,27 +20,24 @@ Windows 自带的电量显示对这类 USB 接收器耳机往往只有很粗的�
 - 托盘图标为电池，按电量变色，悬停显示百分比；电量低于 20%、10% 时弹一次通知
 - 双击悬浮窗立即刷新；位置、大小、置顶、锁定状态都会记住
 
-![托盘图标](build/shot-tray.png)
+![状态栏模式](build/状态栏模式.png)
 
 ## 精简版（只有托盘图标）
 
 仓库里的 [`lite/`](lite/) 是一个精简版：去掉悬浮窗、设置窗口和配置文件，只保留系统托盘里的一个电池图标。
 
-- 下载：Actions 构建产物里的 `InzoneBatteryLite-win`，或者到 Releases 下载 `InzoneBatteryLite.exe`
-- 图标本身就是电量条；左键点弹气泡，右键菜单只有「立即刷新 / 开机自动启动 / 重新显示托盘图标 / 退出」
+- 图标本身就是电量条；在图标上悬停显示详细，左键点弹气泡，
 - 自启动注册表值名是 `InzoneBatteryLite`，和完整版互不覆盖，两个可以同时开着
 - 细节见 [lite/README.md](lite/README.md)
 
 ## 下载
 
-到 [Releases](../../releases) 下载
+到 [Releases](../../releases) 下载:
 完整版 `InzoneBattery.exe`
 精简版  `InzoneBatteryLite.exe`
 -双击即可运行无需安装
 
 > 程序没有代码签名，首次运行 Windows SmartScreen 可能提示「Windows 已保护你的电脑」，点「更多信息 → 仍要运行」即可。也欢迎从源码自行编译。
-
-
 
 ### 外观设置
 
