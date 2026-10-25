@@ -1,0 +1,32 @@
+name: build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build with csc (no SDK needed)
+        shell: pwsh
+        run: |
+          ./build.ps1
+
+      - name: Show result
+        shell: pwsh
+        run: |
+          Get-Item InzoneBattery.exe | Select-Object Name, Length
+          (Get-AuthenticodeSignature InzoneBattery.exe).Status
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: InzoneBattery-win
+          path: |
+            InzoneBattery.exe
+            build/SetIntegrity.exe
