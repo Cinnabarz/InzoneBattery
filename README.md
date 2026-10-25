@@ -134,7 +134,7 @@ INZONE 的 USB 接收器是一个复合设备，除了两个音频端点外还�
 powershell -ExecutionPolicy Bypass -File build.ps1
 ```
 
-生成 `InzoneBattery.exe`。
+生成 `InzoneBattery.exe`。GitHub Actions 会在每次 push 时用同样的方式构建并上传 artifact（见 `.github/workflows/build.yml`）。
 
 ## 卸载
 
@@ -156,6 +156,7 @@ src/SettingsForm.cs   背景透明度设置窗口
 tools/make-icon.ps1   生成 exe 图标
 tools/SetIntegrity.cs 把 exe 完整性标签设为 Medium（修托盘图标）
 build/app.ico         程序图标
+.github/workflows/    自动构建
 ```
 
 ## 许可
